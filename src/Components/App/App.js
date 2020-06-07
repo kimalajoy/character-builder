@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './App.css';
-import {fetchData} from '../../ApiCalls';
 import { Route, Switch } from "react-router-dom";
 import Login from '../Login/Login';
 import BuildCharacter from '../BuildChar/BuildCharacter';
@@ -10,7 +9,8 @@ class App extends Component {
     super()
     this.state = {
       username: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      character: {}
     }
   }
 
@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetchData();
+    // this.fetchRaceInfo();
   } 
 
   render() {
@@ -34,7 +34,7 @@ class App extends Component {
           }
           />
           <Route path='/BuildCharacter' render={() =>
-            <BuildCharacter />
+            <BuildCharacter user={this.state.username} character={this.state.character}/>
           }
           />
         </Switch>

@@ -1,4 +1,4 @@
-export const fetchData = async () => {
+export const fetchRaces = async () => {
   const response = await fetch('https://www.dnd5eapi.co/api/races')
   const data = await response.json()
   

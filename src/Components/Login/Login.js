@@ -9,10 +9,8 @@ class Login extends Component {
     }
   }
   setUserName = (event) => {
-    // event.preventDefault();
     let targetedProperty = event.target.id;
-    this.setState({ [targetedProperty]: event.target.value }, () => {
-    });
+    this.setState({ [targetedProperty]: event.target.value });
 
   };
 
