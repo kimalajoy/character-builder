@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Login from '../Login/Login';
 import BuildCharacter from '../BuildChar/BuildCharacter';
 
@@ -8,18 +8,22 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      username: '',
-      isLoggedIn: false,
+      username: ''
     }
-  }
-
-  changeLoginStatus = () => {
-    this.setState({isLoggedIn: (!this.state.isLoggedIn)})
   }
 
   componentDidMount() {
     // this.fetchRaceInfo();
   } 
+
+  logoutUser = () => {
+    this.setState({username: ''})
+  }
+
+  setUsername = (name) => {
+    console.log(name)
+    this.setState({username: name})
+  }
 
   render() {
     return (
@@ -29,11 +33,12 @@ class App extends Component {
         </div>
         <Switch>
           <Route exact path='/' render={() =>
-            <Login changeLoginStatus={this.changeLoginStatus} />
+            <Login changeLoginStatus={this.changeLoginStatus} takeUsername={this.setUsername}/>
           }
           />
+          {!this.state.username && <Redirect to="/" />}
           <Route path='/BuildCharacter' render={() =>
-            <BuildCharacter user={this.state.username}/>
+            <BuildCharacter username={this.state.username} logoutUser={this.logoutUser}/>
           }
           />
         </Switch>

@@ -7,8 +7,8 @@ class BuildCharacter extends Component {
     this.races = [];
     this.classes = [];
     this.state = {
+      id: this.getNewSeed(),
       isLoading: true,
-      username: '',
       seed: this.getNewSeed(),
       character: {
         race: '',
@@ -111,6 +111,10 @@ class BuildCharacter extends Component {
     return Math.floor(Math.random() * 1000)
   }
 
+  handleSave = () => {
+    localStorage.setItem(this.state.id, JSON.stringify(this.state))
+  }
+
   render () {
     console.log('raceDetails', this.state.character.raceDetails);
     console.log('classDetails', this.state.character.classDetails);
@@ -120,8 +124,11 @@ class BuildCharacter extends Component {
 
     return(
       <div>
+      <header>
+        <button onClick={this.props.logoutUser}>LogOut</button>
+      </header>
         <div>
-          <h1>Welcome to your Character Information Center</h1>
+          <h1>Welcome to your Character Information Center, {this.props.username}!</h1>
         </div>
         <div>
           <img className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
@@ -153,6 +160,7 @@ class BuildCharacter extends Component {
           </form>
           {classDetails}
         </div>
+        <button onClick={this.handleSave}>Save your Character</button>
       </div>
     )
   }
