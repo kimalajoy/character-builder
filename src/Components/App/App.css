@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.avatar {
+  height: 150px;
+  width: 150px;
+  /* color: tint(#BADA55, 42%); */
+}

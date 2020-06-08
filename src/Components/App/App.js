@@ -10,7 +10,6 @@ class App extends Component {
     this.state = {
       username: '',
       isLoggedIn: false,
-      character: {}
     }
   }
 
@@ -26,7 +25,7 @@ class App extends Component {
     return (
       <main>
         <div>
-          <h1>Make your character, yo!</h1>
+          <h1>D&D Character Info</h1>
         </div>
         <Switch>
           <Route exact path='/' render={() =>
@@ -34,7 +33,7 @@ class App extends Component {
           }
           />
           <Route path='/BuildCharacter' render={() =>
-            <BuildCharacter user={this.state.username} character={this.state.character}/>
+            <BuildCharacter user={this.state.username}/>
           }
           />
         </Switch>
