@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {fetchRaces, fetchRaceDetails, fetchClasses, fetchClassDetails} from '../../ApiCalls'; 
+import {fetchRaces, fetchRaceDetails, fetchClasses, fetchClassDetails} from '../../ApiCalls';
+import './BuildCharacter'
 
 class BuildCharacter extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class BuildCharacter extends Component {
       isLoading: true,
       seed: this.getNewSeed(),
       character: {
+        name: '',
         race: '',
         raceDetails: '',
         charClass: '',
@@ -36,43 +38,23 @@ class BuildCharacter extends Component {
   getRaceDetails = async (race) => {
     let raceDetails = await fetchRaceDetails(race);
     Promise.all([raceDetails]).then(allPromises => {
-    this.setState({character: {raceDetails: allPromises[0]}});
+      let character = this.state.character;
+      character.raceDetails = allPromises[0]
+      this.setState({character: character});
     })
   }
 
   setRace = (event) => {
-    let race = event.target.value;
-    this.setState({character: {race: race} })
-    this.getRaceDetails(race);
-  }
-
-//class
-  fetchClass = async () => {
-    this.setState({isLoading: true});
-    let allClasses = await fetchClasses();
-    Promise.all([allClasses]).then(allPromises => {
-      this.classes = allPromises[0].results
-      this.setState({isLoading: false});
-    })
-  }
-
-  getClassDetails = async (characterClass) => {
-    console.log(characterClass)
-    let classDetails = await fetchClassDetails(characterClass);
-    Promise.all([classDetails]).then(allPromises => {
-    this.setState({character: {classDetails: allPromises[0]}})
-    })
-  }
-
-  setClass = (event) => {
-    let classSelection = event.target.value;
-    this.setState({character: {charClass: classSelection}})
-    this.getClassDetails(classSelection);
+    let character = this.state.character;
+    console.log('character in race', character)
+    character.race = event.target.value
+    this.setState({character: character})
+    this.getRaceDetails(character.race);
   }
 
   renderRaceDetails = () => {
     return(
-      <div>
+      <div className='race-details'>
         <h1>Details for {this.state.character.raceDetails.name}</h1>
         <p>Age: {this.state.character.raceDetails.age}</p>
         <p>Size: {this.state.character.raceDetails.size}. {this.state.character.raceDetails.size_description}</p>
@@ -87,9 +69,36 @@ class BuildCharacter extends Component {
     )
   }
 
+//class
+  fetchClass = async () => {
+    this.setState({isLoading: true});
+    let allClasses = await fetchClasses();
+    Promise.all([allClasses]).then(allPromises => {
+      this.classes = allPromises[0].results
+      this.setState({isLoading: false});
+    })
+  }
+
+  getClassDetails = async (characterClass) => {
+    let classDetails = await fetchClassDetails(characterClass);
+    Promise.all([classDetails]).then(allPromises => {
+    let character = this.state.character;
+    character.classDetails = allPromises[0]
+    this.setState({character: character})
+    })
+  }
+
+  setClass = (event) => {
+    let character = this.state.character;
+    console.log('character in class', character)
+    character.charClass = event.target.value;
+    this.setState({character: character})
+    this.getClassDetails(character.charClass);
+  }
+
   renderClassDetails = () => {
     return(
-      <div>
+      <div className='class-details'>
         <h1>Details for {this.state.character.classDetails.name} class</h1>
         <h3>Hit Die: {this.state.character.classDetails.hit_die}</h3>
         <h3>Proficiencies:</h3>
@@ -111,34 +120,60 @@ class BuildCharacter extends Component {
     return Math.floor(Math.random() * 1000)
   }
 
+//Character Name
+  capturingCharacterName = (event) => {
+    let character = this.state.character;
+    console.log('character in name', character)
+    character.name = event.target.value;
+    this.setState({character: character}) 
+  }
+
+//LocalStorage
   handleSave = () => {
-    localStorage.setItem(this.state.id, JSON.stringify(this.state))
+    this.setState({isLoading: true});
+    let savedCharacters = this.getSavedCharacters();
+    savedCharacters[this.state.id] = this.state;
+    localStorage.setItem(this.props.username, JSON.stringify(savedCharacters));
+    this.setState({isLoading: false});
+  }
+
+  getSavedCharacters = () => {
+    return JSON.parse(localStorage.getItem(this.props.username) || '{}')
+  }
+
+  renderSavedCharacters = () => {
+    let savedCharacters = this.getSavedCharacters();
+    console.log('renderSaved')
+    return (
+    Object.keys(savedCharacters).map((key, index) => 
+      <div key={index}>
+        <h1>{savedCharacters[key].character.name}</h1>
+      </div>
+    )
+    )
   }
 
   render () {
-    console.log('raceDetails', this.state.character.raceDetails);
-    console.log('classDetails', this.state.character.classDetails);
+    console.log('raceDetails in render', this.state.character.raceDetails);
+    console.log('classDetails in render', this.state.character.classDetails);
+    console.log('name in render', this.state.character.name)
 
     let raceDetails = this.state.character.raceDetails ? this.renderRaceDetails() : '';
     let classDetails = this.state.character.classDetails ? this.renderClassDetails() : '';
 
     return(
-      <div>
-      <header>
-        <button onClick={this.props.logoutUser}>LogOut</button>
-      </header>
-        <div>
+      <div className='character-info'>
+        <header>
+          <button className='logout-button' onClick={this.props.logoutUser}>LogOut</button>
           <h1>Welcome to your Character Information Center, {this.props.username}!</h1>
+        </header>
+        <div className='savedCharacters'>
+          <h2>Previously Saved Characters:</h2>
+          {this.renderSavedCharacters()}
         </div>
         <div>
           <img className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
           <button onClick={this.setSeed}>Click to Generate a New Character Avatar</button>
-        </div>
-        <div>
-        <form>
-          <input placeholder='Enter a Name' type='text'></input>
-          <button>Submit</button>
-        </form>
         </div>
         <div className='race'>
           <form>
@@ -159,6 +194,11 @@ class BuildCharacter extends Component {
             </select>
           </form>
           {classDetails}
+        </div>
+        <div>
+          <form>
+            <input onChange={this.capturingCharacterName} placeholder='Enter a Name' type='text'></input>
+          </form>
         </div>
         <button onClick={this.handleSave}>Save your Character</button>
       </div>

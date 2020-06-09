@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Login from '../Login/Login';
 import BuildCharacter from '../BuildChar/BuildCharacter';
 
+
 class App extends Component {
   constructor() {
     super()
@@ -27,10 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <main>
-        <div>
-          <h1>D&D Character Info</h1>
-        </div>
+      <main className='main-container'>
         <Switch>
           <Route exact path='/' render={() =>
             <Login changeLoginStatus={this.changeLoginStatus} takeUsername={this.setUsername}/>

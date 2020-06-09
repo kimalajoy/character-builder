@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import './Login.css';
 
 class Login extends Component {
   username = '';
@@ -18,11 +19,14 @@ class Login extends Component {
 
   render () {
     return (
-      <div>
+      <div className='login'>
+        <div>
+          <h1>D&D Character Info</h1>
+        </div>
         <form className='login-form'>
-          <input onChange={this.capturingUsername} id='username' placeholder='Enter your username'></input>
+          <input className='login-input' onChange={this.capturingUsername} id='username' placeholder='Enter your username'></input>
           <Link to='/BuildCharacter'>
-            <button onClick={this.submitUserName} type='submit'>Enter!</button>
+            <button className='login-button' onClick={this.submitUserName} type='submit'>Enter!</button>
           </Link>
         </form>
       </div>

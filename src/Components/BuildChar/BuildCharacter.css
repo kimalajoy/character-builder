@@ -1,0 +1,36 @@
+.character-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.race{
+  background-color: darkgray;
+  width: 35%;
+}
+
+.race-details {
+  background-color: darkgray;
+  width: 35%;
+  
+}
+
+/* .class {
+  background-color: darkgray;
+  width: 35%;
+} */
+
+.class-details {
+  background-color: darkgray;
+  width: 35%;
+}
+
+.logout-button {
+  height: 50px;
+  color: bisque;
+  background-color: black;
+  font-family: 'Metal Mania', cursive;
+  font-size: x-large;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+}
