@@ -1,30 +1,113 @@
-.character-info {
+
+.race {
+  background-color: darkgray;
   display: flex;
-  flex-direction: row;
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 45%;
 }
 
-.race{
+.characterClass {
   background-color: darkgray;
-  width: 35%;
-}
-
-.race-details {
-  background-color: darkgray;
-  width: 35%;
-  
-}
-
-/* .class {
-  background-color: darkgray;
-  width: 35%;
-} */
-
-.class-details {
-  background-color: darkgray;
-  width: 35%;
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 45%;
 }
 
 .logout-button {
+  height: 50px;
+  color: bisque;
+  background-color: black;
+  font-family: 'Metal Mania', cursive;
+  font-size: x-large;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.save-button {
+  height: 50px;
+  color: bisque;
+  background-color: black;
+  font-family: 'Metal Mania', cursive;
+  font-size: x-large;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+}
+
+.greeting {
+  padding: 10px;
+}
+
+.savedCharacters {
+  width: 25%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  background-color: dimgray;
+}
+
+.saved-avatar {
+  display: flex;
+  background-color: darkgrey;
+  align-content: space-around;
+  flex-wrap: wrap;
+  margin: 5px;
+  padding: 5px;
+}
+
+.saved-avatar img {
+  height: 75px;
+  width: 75px;
+  order: 1;
+}
+
+.saved-avatar h2 {
+  margin: 5px;
+  padding: 5px;
+}
+
+.saved-avatar h3 {
+  margin: 5px;
+  padding: 5px;
+}
+
+.create-a-character {
+  display: flex;
+  height: 100vh;
+  /* width: 60%; */
+  list-style-type: none;
+  justify-content: space-around;
+}
+
+.create-a-character  button {
+  height: 50px;
+  color: bisque;
+  background-color: black;
+  font-family: 'Metal Mania', cursive;
+  font-size: x-large;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+}
+
+.create-a-avatar {
+  display: flex;
+  width: 60%;
+}
+
+.create-a-avatar  button {
   height: 50px;
   color: bisque;
   background-color: black;

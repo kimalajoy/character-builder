@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {fetchRaces, fetchRaceDetails, fetchClasses, fetchClassDetails} from '../../ApiCalls';
-import './BuildCharacter'
+import './BuildCharacter.css'
 
 class BuildCharacter extends Component {
   constructor(props) {
@@ -146,61 +146,63 @@ class BuildCharacter extends Component {
     console.log('renderSaved')
     return (
     Object.keys(savedCharacters).map((key, index) => 
-      <div key={index}>
-        <h1>{savedCharacters[key].character.name}</h1>
+      <div className="saved-avatar" key={index}>
+        <h2>{savedCharacters[key].character.name}</h2>
+        <h3>{savedCharacters[key].character.race}</h3>
+        <h3>{savedCharacters[key].character.charClass}</h3>
+        <img src={`https://avatars.dicebear.com/api/human/${savedCharacters[key].seed}.svg`} alt="avatar"/>
       </div>
-    )
-    )
+    ))
   }
 
   render () {
-    console.log('raceDetails in render', this.state.character.raceDetails);
-    console.log('classDetails in render', this.state.character.classDetails);
-    console.log('name in render', this.state.character.name)
 
     let raceDetails = this.state.character.raceDetails ? this.renderRaceDetails() : '';
     let classDetails = this.state.character.classDetails ? this.renderClassDetails() : '';
 
     return(
       <div className='character-info'>
-        <header>
+        <header className='header'>
+          <h1 className='greeting'>Welcome to your Character Information Center, {this.props.username}!</h1>
           <button className='logout-button' onClick={this.props.logoutUser}>LogOut</button>
-          <h1>Welcome to your Character Information Center, {this.props.username}!</h1>
         </header>
+        <hr/>
         <div className='savedCharacters'>
           <h2>Previously Saved Characters:</h2>
           {this.renderSavedCharacters()}
         </div>
-        <div>
+        <div className='create-a-avatar'>
           <img className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
-          <button onClick={this.setSeed}>Click to Generate a New Character Avatar</button>
+          <button onClick={this.setSeed}>Click to Generate a New Avatar</button>
         </div>
-        <div className='race'>
-          <form>
-            <select defaultValue={this.state.character.race} onChange={this.setRace}>
-            <option value='' disabled>Choose your Race</option>
-              {this.races.map(race => 
-              <option key={race.index} value={race.index}>{race.name}</option>)}
-            </select>
-          </form>
-          {raceDetails}
-        </div>
-        <div className='characterClass'>
-          <form>
-            <select defaultValue={this.state.character.charClass} onChange={this.setClass}>
-            <option value='' disabled>Choose your Class</option>
-              {this.classes.map(charClass => 
-              <option key={charClass.index} value={charClass.index}>{charClass.name}</option>)}
-            </select>
-          </form>
-          {classDetails}
-        </div>
-        <div>
-          <form>
-            <input onChange={this.capturingCharacterName} placeholder='Enter a Name' type='text'></input>
-          </form>
-        </div>
-        <button onClick={this.handleSave}>Save your Character</button>
+        <div className='create-a-character'>
+          <div className='race'>
+            <form>
+              <select defaultValue={this.state.character.race} onChange={this.setRace}>
+              <option value='' disabled>Choose your Race</option>
+                {this.races.map(race => 
+                <option key={race.index} value={race.index}>{race.name}</option>)}
+              </select>
+            </form>
+            {raceDetails}
+          </div>
+          <div className='characterClass'>
+            <form>
+              <select defaultValue={this.state.character.charClass} onChange={this.setClass}>
+              <option value='' disabled>Choose your Class</option>
+                {this.classes.map(charClass => 
+                <option key={charClass.index} value={charClass.index}>{charClass.name}</option>)}
+              </select>
+            </form>
+            {classDetails}
+          </div>
+          <div className='characterSave'>
+            <form>
+              <input onChange={this.capturingCharacterName} placeholder='Enter a Name' type='text'></input>
+            </form>
+            <button className='save-button' onClick={this.handleSave}>Save your Character</button>
+          </div>
+          </div>
       </div>
     )
   }
