@@ -6,7 +6,7 @@ This D&D character builder utilizes the D&D 5e API to help you create your next 
 ### Screenshots
 
 ![Login Page](https://user-images.githubusercontent.com/54754467/84224827-bebd8b80-aa9a-11ea-93f6-7ad3619cd25e.png)
-![Character Creation Page](https://user-images.githubusercontent.com/54754467/84224831-c1b87c00-aa9a-11ea-97b5-0679513f6f85.png)
+![Character Creation Page](https://user-images.githubusercontent.com/54754467/84225638-eb72a280-aa9c-11ea-8cc1-1d2bb9497c24.png)
 ![Saved Character](https://user-images.githubusercontent.com/54754467/84224833-c41ad600-aa9a-11ea-8ec8-57ab927899e6.png)
 
 ### Future Iterations
