@@ -11,10 +11,6 @@ class App extends Component {
     this.state = {
       username: ''
     }
-  }
-
-  componentDidMount() {
-    // this.fetchRaceInfo();
   } 
 
   logoutUser = () => {
@@ -22,7 +18,6 @@ class App extends Component {
   }
 
   setUsername = (name) => {
-    console.log(name)
     this.setState({username: name})
   }
 

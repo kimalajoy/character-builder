@@ -11,5 +11,8 @@
 .avatar {
   height: 150px;
   width: 150px;
+  background-color: #b3afaf7d;
+  margin: 5px;
+  padding: 5px;
 }
 

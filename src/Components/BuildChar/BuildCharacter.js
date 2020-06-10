@@ -30,7 +30,10 @@ class BuildCharacter extends Component {
   fetchRaceInfo = async () => {
     let allRaces = await fetchRaces();
     Promise.all([allRaces]).then(allPromises => {
+      console.log('all races fetch', allRaces[0])
+
       this.races = allPromises[0].results;
+    
       this.setState({isLoading: false});
     });
   }
@@ -60,7 +63,7 @@ class BuildCharacter extends Component {
         <p>Size: {this.state.character.raceDetails.size}. {this.state.character.raceDetails.size_description}</p>
         <p>Speed: {this.state.character.raceDetails.speed}</p>
         <p>Alignment: {this.state.character.raceDetails.alignment}</p>
-        <ul>
+        <ul>Traits:
           {this.state.character.raceDetails.traits.map((trait, index) => 
             <li key={index}>{trait.name}</li>
           )}
@@ -100,7 +103,8 @@ class BuildCharacter extends Component {
     return(
       <div className='class-details'>
         <h1>Details for {this.state.character.classDetails.name} class</h1>
-        <h3>Hit Die: {this.state.character.classDetails.hit_die}</h3>
+        <h3>Hit Die:</h3>
+        <p>{this.state.character.classDetails.hit_die}</p>
         <h3>Proficiencies:</h3>
         <ul>
           {this.state.character.classDetails.proficiencies.map((choice, index) => 
@@ -172,7 +176,7 @@ class BuildCharacter extends Component {
           {this.renderSavedCharacters()}
         </div>
         <div className='create-a-avatar'>
-          <img className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
+          <img data-testid='new-avatar-button' className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
           <button onClick={this.setSeed}>Click to Generate a New Avatar</button>
         </div>
         <div className='create-a-character'>
@@ -200,7 +204,7 @@ class BuildCharacter extends Component {
             <form>
               <input onChange={this.capturingCharacterName} placeholder='Enter a Name' type='text'></input>
             </form>
-            <button className='save-button' onClick={this.handleSave}>Save your Character</button>
+            <button className='save-button' onClick={this.handleSave}>Save</button>
           </div>
           </div>
       </div>

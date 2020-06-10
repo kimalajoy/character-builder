@@ -1,9 +1,24 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import ReactDOM from 'react-dom';
+import Login from '../Login/Login';
+import App from '../App/App'
+import {render, fireEvent} from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { MemoryRouter as Router} from "react-router-dom";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const renderApp = () => {
+  return render(
+    <Router>
+      <App />
+    </Router>
+  )
+}
+
+
+describe('App', () => {
+  it('', () => {
+    
+  });
+  
+  
 });
