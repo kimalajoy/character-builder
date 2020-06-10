@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from '../Login/Login';
 import App from '../App/App'
-import {render, fireEvent} from '@testing-library/react';
+import {render, fireEvent, getByText} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter as Router} from "react-router-dom";
 
@@ -14,10 +14,12 @@ const renderApp = () => {
   )
 }
 
-
 describe('App', () => {
-  it('', () => {
-    
+
+  it('renders', () => {
+    const {getByText} = renderApp();
+
+    expect(getByText('D&D Character Info')).toBeInTheDocument();
   });
   
   

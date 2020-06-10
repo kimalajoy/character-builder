@@ -9,7 +9,6 @@ class Login extends Component {
     this.state = {}
   }
   submitUserName = (event) => {
-    console.log(this.username)
     this.props.takeUsername(this.username);
   };
 

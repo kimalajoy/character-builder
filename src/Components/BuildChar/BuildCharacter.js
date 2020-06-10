@@ -30,11 +30,8 @@ class BuildCharacter extends Component {
   fetchRaceInfo = async () => {
     let allRaces = await fetchRaces();
     Promise.all([allRaces]).then(allPromises => {
-      console.log('all races fetch', allRaces[0])
-
       this.races = allPromises[0].results;
-    
-      this.setState({isLoading: false});
+      this.setState({isLoading: false})
     });
   }
 
@@ -43,13 +40,13 @@ class BuildCharacter extends Component {
     Promise.all([raceDetails]).then(allPromises => {
       let character = this.state.character;
       character.raceDetails = allPromises[0]
-      this.setState({character: character});
+      this.setState({character: character})
+
     })
   }
 
   setRace = (event) => {
     let character = this.state.character;
-    console.log('character in race', character)
     character.race = event.target.value
     this.setState({character: character})
     this.getRaceDetails(character.race);
@@ -78,7 +75,8 @@ class BuildCharacter extends Component {
     let allClasses = await fetchClasses();
     Promise.all([allClasses]).then(allPromises => {
       this.classes = allPromises[0].results
-      this.setState({isLoading: false});
+      this.setState({isLoading: false})
+
     })
   }
 
@@ -93,7 +91,6 @@ class BuildCharacter extends Component {
 
   setClass = (event) => {
     let character = this.state.character;
-    console.log('character in class', character)
     character.charClass = event.target.value;
     this.setState({character: character})
     this.getClassDetails(character.charClass);
@@ -127,7 +124,6 @@ class BuildCharacter extends Component {
 //Character Name
   capturingCharacterName = (event) => {
     let character = this.state.character;
-    console.log('character in name', character)
     character.name = event.target.value;
     this.setState({character: character}) 
   }
@@ -147,7 +143,6 @@ class BuildCharacter extends Component {
 
   renderSavedCharacters = () => {
     let savedCharacters = this.getSavedCharacters();
-    console.log('renderSaved')
     return (
     Object.keys(savedCharacters).map((key, index) => 
       <div className="saved-avatar" key={index}>
@@ -181,8 +176,8 @@ class BuildCharacter extends Component {
         </div>
         <div className='create-a-character'>
           <div className='race'>
-            <form>
-              <select defaultValue={this.state.character.race} onChange={this.setRace}>
+            <form data-testid='race-options'>
+              <select defaultValue={this.state.character.race} onChange={this.setRace} >
               <option value='' disabled>Choose your Race</option>
                 {this.races.map(race => 
                 <option key={race.index} value={race.index}>{race.name}</option>)}
@@ -191,7 +186,7 @@ class BuildCharacter extends Component {
             {raceDetails}
           </div>
           <div className='characterClass'>
-            <form>
+            <form data-testid='class-options'>
               <select defaultValue={this.state.character.charClass} onChange={this.setClass}>
               <option value='' disabled>Choose your Class</option>
                 {this.classes.map(charClass => 

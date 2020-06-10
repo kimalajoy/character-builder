@@ -4,67 +4,65 @@ import BuildCharacter from '../BuildChar/BuildCharacter';
 import {render, waitFor, getByText, fireEvent, getByPlaceholderText, cleanup, getByTestId} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter as Router} from "react-router-dom";
-import {fetchRaces, fetchClasses} from '../../ApiCalls';
-jest.mock('../../ApiCalls', () => ({  
-   __esModule: true, 
-   fetchRaces: jest.fn(), 
-   fetchClasses: jest.fn(), 
-   }));
+import {fetchRaces, fetchClasses, fetchRaceDetails, fetchClassDetails} from '../../ApiCalls';
+import {allRaceData, raceDetailData, allClassData, classDetailData} from '../../mockData';
 
-// jest.mock('../../ApiCalls.js');
+// jest.mock('../../ApiCalls', () => ({  
+//    __esModule: true, 
+//    fetchRaces: jest.fn(), 
+//    fetchClasses: jest.fn(),
+//    fetchRaceDetails: jest.fn(),
+//    fetchClassDetails: jest.fn() 
+//    }));
+
+jest.mock('../../ApiCalls.js');
 
 describe('BuildCharacter', () => {
+  fetchRaces.mockResolvedValue(allRaceData)
+  fetchClasses.mockResolvedValue(allClassData)
+  fetchRaceDetails.mockResolvedValue(raceDetailData)
+  fetchClassDetails.mockResolvedValue(classDetailData)
+
   it('should render', () => {
     
-  const {getByText, getByTestId} = render (
+  const {getByText, getByTestId, debug} = render (
     <BuildCharacter 
       username='Beans'
     />)
-     
 
+    
     expect(getByText('Welcome to your Character Information Center, Beans!')).toBeInTheDocument();
     expect(getByTestId('new-avatar-button')).toBeInTheDocument();
+    expect(getByText('Previously Saved Characters:')).toBeInTheDocument();
     expect(getByText('Choose your Race')).toBeInTheDocument();
     expect(getByText('Choose your Class')).toBeInTheDocument();
 
-    // const header = getByRole('navigation')
   });
 
 });
 
 it('should fetch',  async () => {
+  
+   const {getByText, getByTestId, debug, getByRole} = render (
+    <BuildCharacter 
+      username='Beans'
+    />)
+  
+  const races = await waitFor(() => getByTestId('race-options'))
 
-  let raceData, classData;
+  const classes = await waitFor(() => getByTestId('class-options'))
 
-  beforeEach(() => {
-    
-    raceData = [{
-      "results": [
-        {
-          "index": "dragonborn",
-          "name": "Dragonborn",
-          "url": "/api/races/dragonborn"
-		    }]
-    }]
+  expect(races).toBeInTheDocument();
+  expect(classes).toBeInTheDocument();
 
-    classData = [{
-      "count": 12,
-      "results": [
-        {
-          "index": "barbarian",
-          "name": "Barbarian",
-          "url": "/api/classes/barbarian"
-        }]
-    }];
 
-    fetchRaces.mockResolvedValueOnce(raceData);
-    fetchClasses.mockResolvedValueOnce(classData);
-
-  });
-
-    const {getByText} = render(<BuildCharacter />);
-
-    const races = await waitFor(() => getByText('Dragonborn'))
-
-    expect(races).toBeInTheDocument();
+  expect(getByText('Choose your Race')).toBeInTheDocument();
+  
+  fireEvent.select(getByText('Dragonborn'));
+  fireEvent.select(getByText('Barbarian'));
+  
+  expect(getByText('Dragonborn')).toBeInTheDocument();
+  expect(getByText('Barbarian')).toBeInTheDocument();
+  debug()
 });
+

@@ -17,6 +17,15 @@ const renderLogin = () => {
 
 describe('login', () => {
 
+  it('renders correctly', () => {
+
+    const {getByText, getByPlaceholderText} = renderLogin();
+
+    expect(getByText('D&D Character Info')).toBeInTheDocument();
+    expect(getByPlaceholderText('Enter your username')).toBeInTheDocument()
+  });
+  
+
   it('Takes in a username', () => {
     
     const {getByPlaceholderText, getByText} = renderLogin();
