@@ -1,27 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BuildCharacter from '../BuildChar/BuildCharacter';
-import {render, waitFor, getByText, fireEvent, getByPlaceholderText, cleanup, getByTestId} from '@testing-library/react';
+import {render, waitFor, getByText, fireEvent, getByPlaceholderText, cleanup, getByTestId, getByLabelText, findByText, findByDisplayValue} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter as Router} from "react-router-dom";
 import {fetchRaces, fetchClasses, fetchRaceDetails, fetchClassDetails} from '../../ApiCalls';
 import {allRaceData, raceDetailData, allClassData, classDetailData} from '../../mockData';
 
-// jest.mock('../../ApiCalls', () => ({  
-//    __esModule: true, 
-//    fetchRaces: jest.fn(), 
-//    fetchClasses: jest.fn(),
-//    fetchRaceDetails: jest.fn(),
-//    fetchClassDetails: jest.fn() 
-//    }));
-
 jest.mock('../../ApiCalls.js');
 
 describe('BuildCharacter', () => {
-  fetchRaces.mockResolvedValue(allRaceData)
-  fetchClasses.mockResolvedValue(allClassData)
-  fetchRaceDetails.mockResolvedValue(raceDetailData)
-  fetchClassDetails.mockResolvedValue(classDetailData)
+  fetchRaces.mockResolvedValue(allRaceData);
+  fetchClasses.mockResolvedValue(allClassData);
+  fetchRaceDetails.mockResolvedValue(raceDetailData);
+  fetchClassDetails.mockResolvedValue(classDetailData);
 
   it('should render', () => {
     
@@ -30,7 +22,6 @@ describe('BuildCharacter', () => {
       username='Beans'
     />)
 
-    
     expect(getByText('Welcome to your Character Information Center, Beans!')).toBeInTheDocument();
     expect(getByTestId('new-avatar-button')).toBeInTheDocument();
     expect(getByText('Previously Saved Characters:')).toBeInTheDocument();
@@ -42,8 +33,8 @@ describe('BuildCharacter', () => {
 });
 
 it('should fetch',  async () => {
-  
-   const {getByText, getByTestId, debug, getByRole} = render (
+   
+   const {getByText, getByTestId, debug, container} = render (
     <BuildCharacter 
       username='Beans'
     />)
@@ -62,7 +53,15 @@ it('should fetch',  async () => {
   fireEvent.select(getByText('Barbarian'));
   
   expect(getByText('Dragonborn')).toBeInTheDocument();
-  expect(getByText('Barbarian')).toBeInTheDocument();
-  debug()
+  expect(getByText('Barbarian')).toBeInTheDocument(); 
+  
+  const selectOption = getByLabelText(container, 'Race')
+  selectOption.onchange = jest.fn()
+
+  fireEvent.change(selectOption, { target: { value: 'dragonborn' } });
+
+  expect(selectOption.value).toBe('dragonborn')
+  expect(selectOption.onchange).toBeCalled()
+  
 });
 

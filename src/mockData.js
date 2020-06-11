@@ -297,3 +297,4 @@ export const classDetailData = {
     ],
     "url": "/api/classes/barbarian"
 }
+

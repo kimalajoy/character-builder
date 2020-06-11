@@ -55,7 +55,7 @@ class BuildCharacter extends Component {
   renderRaceDetails = () => {
     return(
       <div className='race-details'>
-        <h1>Details for {this.state.character.raceDetails.name}</h1>
+        <h1 data-testid='raceDetails' >Details for {this.state.character.raceDetails.name}</h1>
         <p>Age: {this.state.character.raceDetails.age}</p>
         <p>Size: {this.state.character.raceDetails.size}. {this.state.character.raceDetails.size_description}</p>
         <p>Speed: {this.state.character.raceDetails.speed}</p>
@@ -176,8 +176,9 @@ class BuildCharacter extends Component {
         </div>
         <div className='create-a-character'>
           <div className='race'>
-            <form data-testid='race-options'>
-              <select defaultValue={this.state.character.race} onChange={this.setRace} >
+            <form  data-testid='race-options'>
+              <label htmlFor='race-select'>Race</label>
+              <select id='race-select' data-testid='select' defaultValue={this.state.character.race} onChange={this.setRace} >
               <option value='' disabled>Choose your Race</option>
                 {this.races.map(race => 
                 <option key={race.index} value={race.index}>{race.name}</option>)}
@@ -187,7 +188,8 @@ class BuildCharacter extends Component {
           </div>
           <div className='characterClass'>
             <form data-testid='class-options'>
-              <select defaultValue={this.state.character.charClass} onChange={this.setClass}>
+            <label htmlFor='class-select'>Class</label>
+              <select id='class-select' defaultValue={this.state.character.charClass} onChange={this.setClass}>
               <option value='' disabled>Choose your Class</option>
                 {this.classes.map(charClass => 
                 <option key={charClass.index} value={charClass.index}>{charClass.name}</option>)}
