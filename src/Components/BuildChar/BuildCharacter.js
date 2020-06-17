@@ -7,6 +7,7 @@ class BuildCharacter extends Component {
     super(props)
     this.races = [];
     this.classes = [];
+    this._isMounted = false;
     this.state = {
       id: this.getNewSeed(),
       isLoading: true,
@@ -22,8 +23,13 @@ class BuildCharacter extends Component {
   }
 
   componentDidMount () {
-    this.fetchRaceInfo();
-    this.fetchClass();
+    this._isMounted = true;
+    this._isMounted && this.fetchRaceInfo();
+    this._isMounted && this.fetchClass();
+  }
+
+  componentWillUnmount() {
+   this._isMounted = false;
   }
 
   //Race
@@ -31,7 +37,7 @@ class BuildCharacter extends Component {
     let allRaces = await fetchRaces();
     Promise.all([allRaces]).then(allPromises => {
       this.races = allPromises[0].results;
-      this.setState({isLoading: false})
+      this._isMounted && this.setState({isLoading: false})
     });
   }
 
@@ -75,8 +81,7 @@ class BuildCharacter extends Component {
     let allClasses = await fetchClasses();
     Promise.all([allClasses]).then(allPromises => {
       this.classes = allPromises[0].results
-      this.setState({isLoading: false})
-
+      this._isMounted && this.setState({isLoading: false})
     })
   }
 
