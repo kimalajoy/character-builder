@@ -7,5 +7,5 @@ deploy:
   provider: heroku
   api_key:
     secure: c2Tm0deukFRBcaDYcRtHL/nnyYuQkIyBDToNzyJbcmxVLoQreiLqzwDi4VTTubOU03XxyKUwq88aGn8yB3BEvs+r/VHCqn4/xxHFK2FbEnuBWaI9bJt2JW7ZcdHnRwIdaFDxcFxREcMl0Tmn4YuEVijyVzyUGKM65ajiBR8qdzIHSM+RErDKtSooOHm7goBSpwr2FpLGFViX5m3I34xZd64nxK2XScoTdmXaRbD7o1wDtLK8kgwy8LiblK82LGX4btGLm2Vs1tWavSG8FQqnAVAeBGsgRS7RIiplc5j0vyXdXL7KPHs/NKVZEEB3sAb+BSoaOLa0ApCHv0ws3uyb9BXBvfFijT+Qk7jfy1ucrA8kK79xFqVzt0EvPYs1ci/gIbxesggUwrky/J/11Mk5/YZ+TgdEr8/bE8E7dYFWi4l1IFan5qNqM428/cIomeIJJoTvlTt/5uWQ4L8ArssFRRYdpjbT2iO1ISeXre+fgYSdZQQj+RhXmNP1wSyZQ6k6qU7yb0TNxgjwNgZiY+olFes+APnCMrmi4fFoNOJAjRqQJtxsqJQ+83Jaj9HR8teskLGsn3V1ZkK7FEIrM1su9g7p3uqkI32CyFn8oulMtcDyN9byyCYwDOCf4ri20k6gaF4rHP/Bnwx+EZKHyUeoFok9yK7Gt0kcZ/5PpnYSL1I=
-  app: character-builder-mod3
+  app: https://git.heroku.com/character-builder-mod3.git
   skip_cleanup: true
