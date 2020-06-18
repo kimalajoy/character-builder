@@ -177,7 +177,7 @@ class BuildCharacter extends Component {
         </div>
         <div className='create-a-avatar'>
           <img data-testid='new-avatar-button' className="avatar" src={`https://avatars.dicebear.com/api/human/${this.state.seed}.svg`} alt="avatar"/>
-          <button onClick={this.setSeed}>Click to Generate a New Avatar</button>
+          <button onClick={this.setSeed}>Generate New Avatar</button>
         </div>
         <div className='create-a-character'>
           <div className='race'>
